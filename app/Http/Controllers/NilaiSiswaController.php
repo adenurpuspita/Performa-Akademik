@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NilaiSiswa;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\NilaiSiswaImport;
+
 
 class NilaiSiswaController extends Controller
 {
@@ -62,14 +65,13 @@ class NilaiSiswaController extends Controller
             'mengingat'        => 'required|numeric',
             'memahami'         => 'required|numeric',
             'mengaplikasikan'  => 'required|numeric',
-            'menganalisis'     => 'required|numeric',
             'menerima'         => 'required|numeric',
             'menanggapi'       => 'required|numeric',
             'menghargai'       => 'required|numeric',
             'meniru'           => 'required|numeric',
             'manipulasi'       => 'required|numeric',
             'presisi'          => 'required|numeric',
-            'artikulasi'       => 'required|numeric',
+            
         ]);
 
         $nilaisiswa->update($request->all());
@@ -84,5 +86,16 @@ class NilaiSiswaController extends Controller
         $nilaisiswa->delete();
 
         return redirect()->route('nilaisiswa.index')->with('success', 'Data nilai siswa berhasil dihapus.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        Excel::import(new NilaiSiswaImport, $request->file('file'));
+
+        return redirect()->route('nilaisiswa.index')->with('success', 'Import data berhasil.');
     }
 }

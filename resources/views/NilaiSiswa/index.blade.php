@@ -161,11 +161,11 @@
 
         <div class="header-actions">
             {{-- Tombol Import Excel --}}
-            <form action="{{ route('nilaisiswa.import') }}" method="POST" class="m-0">
+            <form action="{{ route('nilaisiswa.import') }}" method="POST" class="m-0" enctype="multipart/form-data">
                 @csrf
+                <input type="file" name="file" required class="form-control form-control-sm d-inline-block" style="width:auto;" accept=".xlsx,.xls,.csv">
                 <button type="submit" class="btn-main">📥 Import Excel</button>
             </form>
-
             {{-- Tombol Tambah Siswa --}}
             <a href="{{ route('nilaisiswa.create') }}" class="btn-main btn-add-siswa">➕ Tambah Siswa</a>
         </div>
@@ -188,14 +188,12 @@
                     <th>Mengingat</th>
                     <th>Memahami</th>
                     <th>Mengaplikasikan</th>
-                    <th>Menganalisis</th>
                     <th>Menerima</th>
                     <th>Menanggapi</th>
                     <th>Menghargai</th>
                     <th>Meniru</th>
                     <th>Manipulasi</th>
-                    <th>Presisi</th>
-                    <th>Artikulasi</th>
+                    <th>Presisi</th> 
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -208,14 +206,12 @@
                         <td>{{ $siswa->mengingat }}</td>
                         <td>{{ $siswa->memahami }}</td>
                         <td>{{ $siswa->mengaplikasikan }}</td>
-                        <td>{{ $siswa->menganalisis }}</td>
                         <td>{{ $siswa->menerima }}</td>
                         <td>{{ $siswa->menanggapi }}</td>
                         <td>{{ $siswa->menghargai }}</td>
                         <td>{{ $siswa->meniru }}</td>
                         <td>{{ $siswa->manipulasi }}</td>
                         <td>{{ $siswa->presisi }}</td>
-                        <td>{{ $siswa->artikulasi }}</td>
                         <td>
                             <div class="action-buttons">
                                 <a href="{{ route('nilaisiswa.edit', $siswa->id) }}" class="btn btn-warning btn-sm">✏️ Edit</a>

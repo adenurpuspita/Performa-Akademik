@@ -146,9 +146,17 @@
         </div>
     @endif
 
+    {{-- Flash Error --}}
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Gagal Import:</strong> {{ $errors->first() }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     {{-- Action Buttons --}}
     <div class="action-bar">
-        <form action="{{ route('prosesklaster.index') }}" method="POST" enctype="multipart/form-data" class="import-form">
+        <form action="{{ route('prosesklaster.import') }}" method="POST" enctype="multipart/form-data" class="import-form">
             @csrf
             <input type="file" name="file" class="form-control" required>
             <button type="submit" class="btn btn-primary">📥 Import Excel</button>
@@ -194,12 +202,12 @@
                         <td>{{ $data->presisi }}</td>
                         <td>
                             <div class="action-buttons">
-                                <a href="{{ route('prosesklaster.edit', $data->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                {{-- <a href="{{ route('prosesklaster.edit', $data->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                 <form action="{{ route('prosesklaster.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?');" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                </form>
+                                </form> --}}
                             </div>
                         </td>
                     </tr>

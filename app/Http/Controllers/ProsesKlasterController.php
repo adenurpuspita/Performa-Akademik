@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProsesKlaster;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ProsesKlasterImport;
 
 class ProsesKlasterController extends Controller
 {
@@ -82,5 +84,19 @@ class ProsesKlasterController extends Controller
         $prosesklaster->delete();
 
         return redirect()->route('prosesklaster.index')->with('success', 'Data nilai siswa berhasil dihapus.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        try {
+            Excel::import(new ProsesKlasterImport, $request->file('file'));
+            return redirect()->route('prosesklaster.index')->with('success', 'Data berhasil diimport.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors('Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
     }
 }

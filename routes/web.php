@@ -86,7 +86,8 @@ Route::controller(NilaiSiswaController::class)->prefix('nilaisiswa')->group(func
     Route::post('edit/{id}', 'update')->name('nilaisiswa.update');
     Route::get('hapus/{id}', 'hapus')->name('nilaisiswa.hapus');
     Route::delete('{id}', 'destroy')->name('nilaisiswa.destroy');
-    Route::post('import', 'import')->name('nilaisiswa.import'); // jika ada fitur import
+    Route::post('/nilaisiswa/import', [NilaiSiswaController::class, 'import'])->name('nilaisiswa.import');
+
 });
 
 Route::controller(RombonganBelajarController::class)
@@ -107,6 +108,8 @@ Route::controller(ProsesKlasterController::class)->prefix('prosesklaster')->grou
     Route::get('create', 'create')->name('prosesklaster.create'); // tambahkan ini
     Route::get('/prosesklaster', [ProsesKlasterController::class, 'index']);
     Route::post('/prosesklaster', [ProsesKlasterController::class, 'store']);
+    Route::post('/prosesklaster/import', [ProsesKlasterController::class, 'import'])->name('prosesklaster.import');
+
     // Route::post('hitung', 'hitung')->name('prosesklaster.hitung');
     // Route::get('hasil', 'hasil')->name('prosesklaster.hasil');
     // Route::get('riwayat', 'riwayat')->name('prosesklaster.riwayat');
